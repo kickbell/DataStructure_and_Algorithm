@@ -8,32 +8,31 @@
 import Foundation
 
 
-//Queue()
+struct Queue<T> {
+    private var queue: [T] = []
 
-var queue: [Int] = []
-
-func enqueue(_ data: Int) {
-    queue.append(data)
-}
-
-func dequeue() -> Int {
-    if let _ = queue.first {
-        return queue.removeFirst()
+    mutating func enqueue(_ data: T) {
+        queue.append(data)
     }
-    return -1
+
+    mutating func dequeue() -> T? {
+        if let _ = queue.first {
+            return queue.removeFirst()
+        }
+        return nil
+    }
 }
 
-(1...10).forEach {
-    enqueue($0)
-}
+
+var queue = Queue<String>()
+
+(1...10).map { String($0)}
+    .forEach {
+        queue.enqueue($0)
+    }
 
 print(queue)
-print(dequeue())
-print(dequeue())
-print(dequeue())
-
-
-//LifoQueue()
-
-//PriorityQueue()
+print(queue.dequeue() ?? "")
+print(queue.dequeue() ?? "")
+print(queue.dequeue() ?? "")
 
