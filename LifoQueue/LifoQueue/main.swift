@@ -7,26 +7,31 @@
 
 import Foundation
 
+struct LifoQueue<T> {
+    private var queue: [T] = []
 
-var lifoQueue: [Int] = []
-
-func enqueue(_ data: Int) {
-    lifoQueue.append(data)
-}
-
-func dequeue() -> Int {
-    if let _ = lifoQueue.last {
-        return lifoQueue.removeLast()
+    mutating func enqueue(_ data: T) {
+        queue.append(data)
     }
-    return -1
+
+    mutating func dequeue() -> T? {
+        if let _ = queue.last {
+            return queue.removeLast()
+        }
+        return nil
+    }
 }
 
-(1...10).forEach {
-    enqueue($0)
-}
 
-print(lifoQueue)
-print(dequeue())
-print(dequeue())
-print(dequeue())
+var queue = LifoQueue<String>()
+
+(1...10).map { String($0)}
+    .forEach {
+        queue.enqueue($0)
+    }
+
+print(queue)
+print(queue.dequeue() ?? "")
+print(queue.dequeue() ?? "")
+print(queue.dequeue() ?? "")
 
