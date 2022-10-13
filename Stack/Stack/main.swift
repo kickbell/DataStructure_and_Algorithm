@@ -8,26 +8,29 @@
 import Foundation
 
 
-//simple, use array
+struct Stack<T> {
+    private var stackArray: [T] = []
 
-var stackArray: [Int] = []
+    mutating func push(data: T) {
+        stackArray.append(data)
+    }
 
-func push(data: Int) {
-    stackArray.append(data)
+    mutating func pop() -> T? {
+        let data = stackArray.last ?? nil
+        stackArray.removeLast()
+        return data
+    }
 }
 
-func pop() -> Int {
-    let data = stackArray.last ?? 0
-    stackArray.removeLast()
-    return data
-}
 
+var stack = Stack<Int>()
 
-push(data: 1)
-push(data: 2)
-push(data: 3)
+stack.push(data: 1)
+stack.push(data: 2)
+stack.push(data: 3)
 
-print(pop())
-print(pop())
-print(pop())
+print(stack.pop() ?? 0)
+print(stack.pop() ?? 0)
+print(stack.pop() ?? 0)
+
 
