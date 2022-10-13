@@ -51,9 +51,23 @@ class NodeManager<T> {
         }
     }
     
+    func search(_ data: Int) -> Node<Int>? {
+        node = self.head
+        
+        while node != nil {
+            if node?.data == data {
+                return node
+            } else {
+                node = node?.pointer
+            }
+        }
+        
+        return nil
+    }
+    
     //단순 전체 데이터 출력 용도 메소드
     func desc() {
-        node = head // add하면서 node값이 달라졌으므로 첫노드로 다시 할당
+        node = self.head // add하면서 node값이 달라졌으므로 첫노드로 다시 할당
         
         while node != nil { //노드가 비어있지 않다면 반복
             guard let unwrapNode = node else { return }
@@ -84,7 +98,10 @@ linkedList.delete(10)
 
 linkedList.desc()
 
+print("3 노드 찾기======================================================")
 
+let searchNode = linkedList.search(3)
+print(searchNode!.data)
 
 
 //while 문
