@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Node<T: Equatable> {
+class Node<T> {
     var data: T
     var pointer: Node<T>?
     
