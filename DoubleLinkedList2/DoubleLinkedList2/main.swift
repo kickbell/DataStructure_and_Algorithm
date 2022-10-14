@@ -22,6 +22,7 @@ class Node<T> {
 
 class NodeManager<Int: Equatable> {
     var head: Node<Int>?
+    var tail: Node<Int>?
     var node: Node<Int>?
     
     init(data: Int) {
@@ -36,36 +37,41 @@ class NodeManager<Int: Equatable> {
             self.node = self.node?.next
         }
         //3. 마지막 노드에 데이터를 추가함. 생성자에 next = nil이 초기값으로 지정되어 있으므로 data만 추가하면 됨.
-        self.node?.next = Node(data: data)
+        let newNode = Node(data: data)
+        self.node?.next = newNode
+        //4. 앞뒤로 포인터를 연결해줘야 하므로 prev에도 node를 할당
+        newNode.prev = self.node
+        //5. tail도 할당
+        self.tail = newNode
     }
     
-    func delete(_ data: Int) {
-        //1. 포인터를 타고 넘어갈 시작부분 할당
-        self.node = self.head
-        
-        while self.node?.next != nil {
-            //2. 삭제하고자 하는 노드 찾기
-            if let unwrapData = self.node?.next?.data, unwrapData == data {
-                self.node?.next = self.node?.next?.next
-                return
-            }
-            self.node = self.node?.next
-        }
-    }
+//    func delete(_ data: Int) {
+//        //1. 포인터를 타고 넘어갈 시작부분 할당
+//        self.node = self.head
+//
+//        while self.node?.next != nil {
+//            //2. 삭제하고자 하는 노드 찾기
+//            if let unwrapData = self.node?.next?.data, unwrapData == data {
+//                self.node?.next = self.node?.next?.next
+//                return
+//            }
+//            self.node = self.node?.next
+//        }
+//    }
     
-    func search(_ data: Int) {
-        self.node = self.head
-        
-        while self.node?.next != nil {
-            if let unwrapData = self.node?.data, unwrapData == data {
-                print("\(unwrapData) 에 해당하는 데이터값이 있습니다. ")
-                return
-            }
-            self.node = self.node?.next
-        }
-        
-        print("해당하는 데이터값이 없습니다.")
-    }
+//    func search(_ data: Int) {
+//        self.node = self.head
+//
+//        while self.node?.next != nil {
+//            if let unwrapData = self.node?.data, unwrapData == data {
+//                print("\(unwrapData) 에 해당하는 데이터값이 있습니다. ")
+//                return
+//            }
+//            self.node = self.node?.next
+//        }
+//
+//        print("해당하는 데이터값이 없습니다.")
+//    }
     
     func desc() {
         //순회 전에 제일 처음 초기값 할당
@@ -93,9 +99,9 @@ print("\n==추가==")
 (1...10).forEach { linkedList.add($0) }
 linkedList.desc()
 
-print("\n==검색==")
-linkedList.search(4)
-
-print("\n==삭제==")
-linkedList.delete(3)
-linkedList.desc()
+//print("\n==검색==")
+//linkedList.search(4)
+//
+//print("\n==삭제==")
+//linkedList.delete(3)
+//linkedList.desc()
