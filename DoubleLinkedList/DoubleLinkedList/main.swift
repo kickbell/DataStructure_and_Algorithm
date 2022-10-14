@@ -39,6 +39,20 @@ class NodeManager<Int: Equatable> {
         self.node?.next = Node(data: data)
     }
     
+    func delete(_ data: Int) {
+        //1. 포인터를 타고 넘어갈 시작부분 할당
+        self.node = self.head
+        
+        while self.node?.next != nil {
+            //2. 삭제하고자 하는 노드 찾기
+            if let unwrapData = self.node?.next?.data, unwrapData == data {
+                self.node?.next = self.node?.next?.next
+                return
+            }
+            self.node = self.node?.next
+        }
+    }
+    
     func search(_ data: Int) {
         self.node = self.head
         
@@ -75,8 +89,13 @@ class NodeManager<Int: Equatable> {
 
 let linkedList = NodeManager(data: 0)
 
+print("\n==추가==")
 (1...10).forEach { linkedList.add($0) }
-
 linkedList.desc()
 
+print("\n==검색==")
 linkedList.search(4)
+
+print("\n==삭제==")
+linkedList.delete(3)
+linkedList.desc()
