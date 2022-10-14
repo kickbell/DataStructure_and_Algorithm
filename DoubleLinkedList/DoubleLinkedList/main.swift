@@ -20,7 +20,7 @@ class Node<T> {
     }
 }
 
-class NodeManager<Int> {
+class NodeManager<Int: Equatable> {
     var head: Node<Int>?
     var node: Node<Int>?
     
@@ -37,6 +37,20 @@ class NodeManager<Int> {
         }
         //3. 마지막 노드에 데이터를 추가함. 생성자에 next = nil이 초기값으로 지정되어 있으므로 data만 추가하면 됨.
         self.node?.next = Node(data: data)
+    }
+    
+    func search(_ data: Int) {
+        self.node = self.head
+        
+        while self.node?.next != nil {
+            if let unwrapData = self.node?.data, unwrapData == data {
+                print("\(unwrapData) 에 해당하는 데이터값이 있습니다. ")
+                return
+            }
+            self.node = self.node?.next
+        }
+        
+        print("해당하는 데이터값이 없습니다.")
     }
     
     func desc() {
@@ -65,3 +79,4 @@ let linkedList = NodeManager(data: 0)
 
 linkedList.desc()
 
+linkedList.search(4)
