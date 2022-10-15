@@ -7,15 +7,7 @@
 
 import Foundation
 
-
-//1. 가장 간단한 해쉬 구현
-
-var hashTable = (0..<8).map { _ in "" }
-
-print(hashTable)
-
 /*
-// String, Int등은 다 Hashable을 준수하고 있어서 hashValue라는 걸로 바로 만들 수 있다. 고정된 길이의 Int를 반환
 struct Car: Hashable {
     var name: String
     var price: Int
@@ -38,18 +30,25 @@ print(human.hashValue) //1058167045924687262
 print(car.hashValue == human.hashValue)
  */
 
+
+//데이터를 저장할 해시 테이블 생성
+var hashTable = (0..<8).map { _ in "" }
+print(hashTable)
+
+//데이터 값을 통해 키값을 반환
 func getKey(data: String) -> Int {
-    return data.hashValue
+    return data.hashValue // String, Int등은 다 Hashable을 준수하고 있어서 hashValue라는 걸로 바로 만들 수 있다. 고정된 길이의 Int를 반환
 }
 
+//해시함수를 통해 저장할 해시 주소를 반환
 func hashFunction(key: Int) -> Int {
     return abs(key) % 8 //abs는 절대값. 음수키가 들어오면 양수로 바꿔주기 위해
 }
 
 func saveData(data: String, value: String) {
-    let key = getKey(data: data)
-    let hashAddress = hashFunction(key: key)
-    hashTable[hashAddress] = value
+    let key = getKey(data: data) //데이터 값을 통해 키값을 반환
+    let hashAddress = hashFunction(key: key) //해시함수를 통해 저장할 해시 주소를 반환
+    hashTable[hashAddress] = value //생성한 해시 테이블에 해시 주소를 index 값으로 해서 데이터를 저장
 }
 
 func readData(data: String) -> String {
@@ -66,5 +65,3 @@ print(readData(data: "수박"))
 print(hashTable)
 
 
-
-//반면, 해쉬 테이블에서는 해쉬값을 index로 사용하여 원하는 값의 위치를 한 번에 알 수 있다. (시간복잡도는 O(1)이다.)
