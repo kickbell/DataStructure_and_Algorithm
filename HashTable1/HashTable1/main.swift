@@ -65,3 +65,5 @@ print(readData(data: "수박"))
 print(hashTable)
 
 
+
+typealias HashAddress = Int
