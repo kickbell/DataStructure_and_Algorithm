@@ -232,19 +232,75 @@ class NodeMgmt {
 }
 
 
-let rootNode = Node(value: 13)
+//var rootNode = Node(value: 13)
+//let bst = NodeMgmt(rootNode: rootNode)
+//
+//print("\n=== insert ===")
+//print(bst.insert(value: 21))
+//print(bst.insert(value: 15))
+//print(bst.insert(value: 25))
+//print(bst.insert(value: 42))
+//print(bst.insert(value: 33))
+//
+//
+//print("\n=== search ===")
+//print(bst.search(value: 25))
+
+
+// 0 ~ 999 숫자 중에서 임의로 100개를 추출해서 이진 탐색 트리에 입력, 검색, 삭제
+
+
+// 0 ~ 999 중 100 개의 숫자 랜덤 선택
+var bstNums: Set<Int> = []
+
+while bstNums.count < 100 {
+    let randomInt = Int.random(in: 0...999)
+    bstNums.insert(randomInt)
+}
+
+print(bstNums)
+
+// 선택된 100개의 숫자를 이진 탐색 트리에 입력, 임의로 루트 노드는 500을 넣기로 함 (0,1 같은걸 넣어버리면 트리가 한쪽으로 치우칠 수 있음)
+let rootNode = Node(value: 500)
 let bst = NodeMgmt(rootNode: rootNode)
+for num in bstNums {
+    _ = bst.insert(value: num)
+}
 
-print("\n=== insert ===")
-print(bst.insert(value: 21))
-print(bst.insert(value: 15))
-print(bst.insert(value: 25))
-print(bst.insert(value: 42))
-print(bst.insert(value: 33))
+// 입력한 100개의 숫자 검색 (검색 기능 확인)
+for num in bstNums {
+    if bst.search(value: num) == false { //100개를 검색했기 때문에 다 true를 리턴해야 하므로 false이면 검색 기능을 잘못 구현한 것임
+        print("search fail : \(num)")
+    }
+}
+
+// 입력한 100개의 숫자 중 10개의 숫자를 랜덤 선택
+
+var deleteNums: Set<Int> = []
+let tenbstNums = Array(bstNums)
+
+while deleteNums.count < 10 {
+    let randomInt = tenbstNums.randomElement() ?? 0
+    deleteNums.insert(randomInt)
+}
 
 
-print("\n=== search ===")
-print(bst.search(value: 25))
+// 선택한 10개의 숫자를 삭제 (삭제 기능 확인)
+
+for num in deleteNums {
+    if bst.delete(value: num) == false {
+        print("delete fail : \(num)")
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 
