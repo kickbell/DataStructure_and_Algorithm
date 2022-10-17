@@ -79,9 +79,9 @@ class NodeMgmt {
      delete는 좀 복잡하다. 이렇게 나눠서 생각해야 함
      1. 삭제할 데이터가 있는지부터 확인
      2. 데이터가 있다면 ? 3가지 경우의 수를 통해 작업, 없다면 리턴 false
-         - Leaf Node 삭제
-         - Chile Node 가 1개인 Node 삭제
-         - Chile Node 가 2개인 Node 삭제
+         - 삭제할 노드가 Leaf Node인 경우
+         - 삭제할 노드의 Chile Node 가 1개인 경우
+         - 삭제할 노드의 Chile Node 가 2개인 경우
      */
     func delete(value: Int) -> Bool {
         //삭제할 데이터가 있는지 여부를 판단한 Bool 타입 변수와 데이터를 삭제함에 따라서 브랜치를 새로 연결해줘야 하니
@@ -108,9 +108,19 @@ class NodeMgmt {
         //만약에 데이터가 없다면 더 진행할 필요가 없으므로 여기서 처리해준다.
         if searched == false { return false }
         
-        // 1. Leaf Node 삭제
-        // 2. Chile Node 가 1개인 Node 삭제
-        // 3. Chile Node 가 2개인 Node 삭제
+        // 1. 삭제할 노드가 Leaf Node인 경우
+        if currentNode?.left == nil && currentNode?.right == nil {
+            // 지울 노드가 parrentNode 기준 왼/오른쪽이냐에 따라서 브랜치도 다르게 처리해주어야 하기 때문에 이렇게 나눠준다.
+            if value < parrentNode.value {
+                parrentNode.left = nil
+            } else {
+                parrentNode.right = nil
+            }
+            currentNode = nil //다 사용했으니 currentNode는 삭제
+        }
+        
+        // 2. 삭제할 노드의 Chile Node 가 1개인 경우
+        // 3. 삭제할 노드의 Chile Node 가 2개인 경우
         
         
         
