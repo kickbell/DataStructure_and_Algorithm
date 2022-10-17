@@ -120,6 +120,42 @@ class NodeMgmt {
         }
         
         // 2. 삭제할 노드의 Chile Node 가 1개인 경우
+        /*
+         - 현재 노드가 왼쪽에만 Chile Node를 가지고 있을 경우
+         - ex.
+                        10
+         
+                    5       15
+         
+                3       7
+         */
+        if currentNode?.left != nil && currentNode?.right == nil {
+            if value < parrentNode.value {
+                parrentNode.left = currentNode?.left
+            } else {
+                parrentNode.right = currentNode?.left
+            }
+            currentNode = nil
+        }
+        /*
+         - 현재 노드가 오른쪽에만 Chile Node를 가지고 있을 경우
+         - ex.
+                        10
+         
+                    5       15
+         
+                        3       7
+         */
+        if currentNode?.left == nil && currentNode?.right != nil {
+            if value < parrentNode.value {
+                parrentNode.left = currentNode?.right
+            } else {
+                parrentNode.right = currentNode?.right
+            }
+            currentNode = nil
+        }
+        
+        
         // 3. 삭제할 노드의 Chile Node 가 2개인 경우
         
         
