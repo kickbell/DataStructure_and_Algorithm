@@ -125,7 +125,7 @@ class NodeMgmt {
          - ex.
                         10
          
-                    5       15
+                    5(c)    15
          
                 3       7
          */
@@ -142,7 +142,7 @@ class NodeMgmt {
          - ex.
                         10
          
-                    5       15
+                    5(c)    15
          
                         3       7
          */
@@ -157,8 +157,73 @@ class NodeMgmt {
         
         
         // 3. 삭제할 노드의 Chile Node 가 2개인 경우
+        /*
+         #### 5.5.3. Case3-1: 삭제할 Node가 Child Node를 두 개 가지고 있을 경우 (삭제할 Node가 Parent Node 왼쪽에 있을 때)
+         #### 5.5.4. Case3-2: 삭제할 Node가 Child Node를 두 개 가지고 있을 경우 (삭제할 Node가 Parent Node 오른쪽에 있을 때)
+
+         * 기본 사용 가능 전략 (여기서는 1번 전략 사용)
+           1. **삭제할 Node의 오른쪽 자식 중, 가장 작은 값을 삭제할 Node의 Parent Node가 가리키도록 한다.**
+           2. 삭제할 Node의 왼쪽 자식 중, 가장 큰 값을 삭제할 Node의 Parent Node가 가리키도록 한다.
+         * 기본 사용 가능 전략 중, 1번 전략을 사용하여 코드를 구현하기로 함
+           - 경우의 수가 또다시 두가지가 있음
+             - 삭제할 Node가 Parent Node의 왼쪽에 있고, 삭제할 Node의 오른쪽 자식 중, 가장 작은 값을 가진 Node의 Child Node가
+             - Case3-1-1: 없을 때
+             - Case3-1-2: 있을 때
+                - 가장 작은 값을 가진 Node의 Child Node가 왼쪽에 있을 경우는 없음, 왜냐하면 왼쪽 Node가 있다는 것은 해당 Node보다 더 작은 값을 가진 Node가 있다는 뜻이기 때문임
+         */
         
         
+        
+        if currentNode?.left != nil && currentNode?.right != nil { //삭제할 노드의 Chile Node 가 2개인 경우
+            
+            // 3-1,2 를 나눠서 작업하는데 밑에 가장 작은 노드가 자식을 가지냐에 따라서 또 2가지로 구분된다.
+            
+            if value < parrentNode.value {
+                //#### 5.5.3. Case3-1: 삭제할 Node가 Child Node를 두 개 가지고 있을 경우 (삭제할 Node가 Parent Node 왼쪽에 있을 때)
+                var changeNode = currentNode?.right
+                var changeParrentNode = currentNode?.right
+                //여기부터는 강의 그림 봐라. 그냥 보면 다시봐도 절대 이해 안감.
+                while changeNode?.left != nil {
+                    //오른쪽 자식을 순회하는 전략을 사용할건데, 이제 거기서 제일 작은애를 찾아야하니 계속 순회
+                    changeParrentNode = changeNode
+                    changeNode = changeNode?.left
+                }
+                
+                //여기까지오면 이제 가장 작은노드를 찾은거고 그게 changeNode이다.
+                //그럼 여기서 이제 가장 작은 노드의 오른쪽에 자식이 있는지 없는지를 판단해서 작업한다.
+                //왼쪽에 자식이 있을 수는 없다. 왼쪽에 자식이 있다는 건 그녀석이 가장 작은 수라는 뜻이기 때문
+                //여기 작업은 changeParrentNode의 브랜치를 이어주는 작업
+                if changeNode?.right != nil {
+                    changeParrentNode?.left = changeNode?.right //- Case3-1-1: 없을 때
+                } else {
+                    changeParrentNode?.left = nil //- Case3-1-2: 있을 때
+                }
+                   
+                //여기 작업은 changeNode를 위로 올려서 재연결 해주는 작업
+                parrentNode.left = changeNode
+                changeNode?.left = currentNode?.left
+                changeNode?.right = currentNode?.right
+            } else {
+                //#### 5.5.4. Case3-2: 삭제할 Node가 Child Node를 두 개 가지고 있을 경우 (삭제할 Node가 Parent Node 오른쪽에 있을 때)
+                var changeNode = currentNode?.right
+                var changeParrentNode = currentNode?.right
+                
+                while changeNode?.left != nil {
+                    changeParrentNode = changeNode
+                    changeNode = changeNode?.left
+                }
+                
+                if changeNode?.right != nil {
+                    changeParrentNode?.left = changeNode?.right
+                } else {
+                    changeParrentNode?.left = nil
+                }
+                   
+                parrentNode.right = changeNode //이 부분만 다르다.
+                changeNode?.left  = currentNode?.left
+                changeNode?.right = currentNode?.right
+            }
+        }
         
         
         return true
