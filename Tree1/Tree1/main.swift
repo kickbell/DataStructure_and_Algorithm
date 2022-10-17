@@ -62,11 +62,14 @@ class NodeMgmt {
             guard let cNode = currentNode else { break }
             if cNode.value == value {
                 return true
-            } else if value < cNode.value {
+            } else if value < cNode.value { //파라미터가 현재 노드의 값보다 작으면 왼쪽, 계속 순회
                 currentNode = cNode.left
             } else {
-                currentNode = cNode.right
+                currentNode = cNode.right //파라미터가 현재 노드의 값보다 크면 오른쪽, 계속 순회
             }
+            
+            //이렇게 들어갔다가 제일 마지막 노드는 left, right에 값이 없겠지 ? insert 에서 안넣어줬고 초기값이 nil 이니까
+            //그러면 while 문은 종료가 되고 이 다음줄로 넘어가서 false를 리턴하는거야. 
         }
         return false
     }
