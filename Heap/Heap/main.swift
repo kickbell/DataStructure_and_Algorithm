@@ -18,7 +18,7 @@ class Heap {
     
     //위와 아래를 바꿔줘야 되는지를 판단하는 메소드
     func moveUp(_ insertedIndex: Int) -> Bool {
-        guard insertedIndex <= 1 else { return false } //루트 노드라면 바꿀 필요 없으니 바로 리턴
+        if insertedIndex <= 1 { return false } //루트 노드(insertedIndex <= 1)라면 바꿀 필요 없으니 바로 리턴
         let parentIndex = insertedIndex - 1
         return heapArray[insertedIndex] > heapArray[parentIndex]
     }
