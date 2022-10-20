@@ -7,39 +7,48 @@
 
 import Foundation
 
+/*
+ 버블정렬 1
+ https://visualgo.net/en/sorting
+ 
+ 예: data_list = [1, 9, 3, 2]
+ 1차 로직 적용
+     1 와 9 비교, 자리바꿈없음 [1, 9, 3, 2]
+     9 와 3 비교, 자리바꿈 [1, 3, 9, 2]
+     9 와 2 비교, 자리바꿈 [1, 3, 2, 9]
+ 2차 로직 적용
+     1 와 3 비교, 자리바꿈없음 [1, 3, 2, 9]
+     3 과 2 비교, 자리바꿈 [1, 2, 3, 9]
+     3 와 9 비교, 자리바꿈없음 [1, 2, 3, 9]
+ 3차 로직 적용
+     1 과 2 비교, 자리바꿈없음 [1, 2, 3, 9]
+     2 과 3 비교, 자리바꿈없음 [1, 2, 3, 9]
+     3 과 9 비교, 자리바꿈없음 [1, 2, 3, 9]
+ 
+ bubblesort1 의 핵심은 일단 array.count - 1 만 순회한다는 것이다.
+ 배열의 길이가 4라면 4 * 4 가 아니라 3 * 3 회 순회한다.
+ 그래야 result[index2] > result[index2 + 1] 로직이 정상적으로 동작한다.
+ */
 
-
-func bubblesort(_ array: [Int]) -> [Int] {
+func bubblesort1(_ array: [Int]) -> [Int] {
     var result = array
     
-    for index1 in 0..<(array.count - 1) {                // 스캔 작업 반복
-        var isSwap = false
-        for index2 in 0..<((array.count - index1) - 1) { // 스캔 작업(인접 인덱스 비교 및 swap 반복) : (탐색하려는 요소의 갯수) - 1 => 탐색하려는 요소의 갯수는 스캔 횟수에 따라 차감됨(스캔 횟수만큼 정렬되어 있을테니)
+    for _ in 0..<array.count - 1 {
+        for index2 in 0..<array.count - 1 {
             if result[index2] > result[index2 + 1] {
-                result.swapAt(index2, (index2 + 1))
-                isSwap = true
+                result.swapAt(index2, index2 + 1)
             }
         }
-        if isSwap == false { break }
     }
     
     return result
 }
 
+print("===before bubble sort1===")
+print([1,9,3,2])
 
-
-var list: Set<Int> = []
-
-while list.count < 50 {
-    let randomInt = Int.random(in: 1...100)
-    list.insert(randomInt)
-}
-
-print("===before bubble sort===")
-print(list)
-
-print("===after bubble sort===")
-print(bubblesort(Array(list)))
+print("===after bubble sort1===")
+print(bubblesort1([1,9,3,2]))
 
 
 
