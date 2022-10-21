@@ -173,8 +173,6 @@ print("\n===calculation2===")
 calculation2(3)
 
 
-
-
 /*
  프로그래밍 연습
  문제: 정수 4를 1, 2, 3의 조합으로 나타내는 방법은 다음과 같이 총 7가지가 있음
@@ -189,4 +187,33 @@ calculation2(3)
  힌트: 정수 n을 만들 수 있는 경우의 수를 리턴하는 함수를 f(n) 이라고 하면,
  f(n)은 f(n-1) + f(n-2) + f(n-3) 과 동일하다는 패턴 찾기
  출처: ACM-ICPC > Regionals > Asia > Korea > Asia Regional - Taejon 2001
+ 
+ 정수 1 -> 1가지
+ 정수 2 -> 2가지
+ 정수 3 -> 4가지
+ 정수 4 -> 7가지
+ 정수 5 -> 13가지
+ 
+ 즉, 1,2,3을 제외하고 4부터는 f(n-1) + f(n-2) + f(n-3)의 패턴을 활용할 수 있다는 뜻이다.
  */
+
+
+func totalCount(_ num: Int) -> Int {
+    switch num {
+    case 1: return 1
+    case 2: return 2
+    case 3: return 4
+    default: return totalCount(num - 1) + totalCount(num - 2) + totalCount(num - 3)
+    }
+}
+
+print("\n===totalCount===")
+print(totalCount(1))
+print(totalCount(2))
+print(totalCount(3))
+print(totalCount(4))
+print(totalCount(5))
+print(totalCount(6))
+
+
+
