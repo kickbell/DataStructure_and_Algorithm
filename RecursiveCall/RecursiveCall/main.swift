@@ -85,3 +85,43 @@ print(sumList1(list))
 print(sumList2(list))
 print(sumList3(list))
 print(sumList4(list))
+
+
+//회문, 앞뒤로바꿔도 똑같은지, 기러기/오디오/역삼역/level...
+func palindrome1(_ word: String) -> Bool {
+    let reversedWord = word.reversed().map {"\($0)"}.joined()
+    return word == reversedWord
+}
+
+func palindrome2(_ word: String) -> Bool {
+    if word.count <= 1 { return true }
+
+    //위에서 1보다 크다는게 통과되었기 떄문에 옵셔널 강제추출을 사용
+    if word.first! == word.last! {
+        // 파이썬 기준으로 하면 first, last를 제외한 나머지 단어를 이렇게 해서 array[1:-1] 재호출
+        let wordArray = word.map { "\($0)"}
+        let newWord = wordArray[1...wordArray.count-2].joined()
+        return palindrome2(newWord)
+    } else {
+        return false
+    }
+}
+
+print("\n===palindrome1===")
+
+print(palindrome1("level"))
+print(palindrome1("levzl"))
+print(palindrome1("madam"))
+print(palindrome1("madem"))
+print(palindrome1("kayak"))
+print(palindrome1("kaydk"))
+
+print("\n===palindrome2===")
+
+print(palindrome2("level"))
+print(palindrome2("levzl"))
+print(palindrome2("madam"))
+print(palindrome2("madem"))
+print(palindrome2("kayak"))
+print(palindrome2("kaydk"))
+
