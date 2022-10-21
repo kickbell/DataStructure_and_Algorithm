@@ -144,3 +144,35 @@ print(타일링_dp(2))
 print(타일링_dp(9))
 
 
+
+/*
+ 파도반 수열
+ https://www.acmicpc.net/problem/9461
+ 
+ 첫째 줄에 테스트 케이스의 개수 T가 주어진다. 각 테스트 케이스는 한 줄로 이루어져 있고, N이 주어진다. (1 ≤ N ≤ 100)
+ 각 테스트 케이스마다 P(N)을 출력한다.
+ */
+
+func 파도반수열_dp(_ num: Int) -> Int {
+    if num <= 3 { return 1 }
+    
+    var cache = (1...num + 1).map { _ in 1 }
+    
+    for index in 4...num {
+        cache[index] = cache[index - 3] + cache[index - 2]
+    }
+    
+    return cache[num]
+}
+
+print("\n===파도반수열===")
+print(파도반수열_dp(1))
+print(파도반수열_dp(2))
+print(파도반수열_dp(3))
+print(파도반수열_dp(4))
+print(파도반수열_dp(5))
+print(파도반수열_dp(6))
+print(파도반수열_dp(7))
+print(파도반수열_dp(8))
+print(파도반수열_dp(9))
+print(파도반수열_dp(10))
