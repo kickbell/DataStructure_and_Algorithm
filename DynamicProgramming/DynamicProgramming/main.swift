@@ -105,12 +105,42 @@ func fibonacci_dp(_ num: Int) -> Int {
  경과 시간: 0.00022804737091064453
  */
 
+print("\n===fibonacci===")
 processTime { print(fibonacci_recursive(40)) }
 processTime { print(fibonacci_dp(40)) }
 
 
 
+/*
+ 2n 타일링
+ https://www.acmicpc.net/problem/11726
+ 첫째 줄에 n이 주어진다. (1 ≤ n ≤ 1,000)
+ 첫째 줄에 2×n 크기의 직사각형을 채우는 방법의 수를 10,007로 나눈 나머지를 출력한다.
+ */
 
+func 타일링_recursive(_ num: Int) -> Int {
+    if num <= 2 { return num }
+    return (타일링_recursive(num - 1) + 타일링_recursive(num - 2)) % 10007
+}
 
+func 타일링_dp(_ num: Int) -> Int {
+    if num <= 2 { return num }
+    
+    var cache = (0...num).map { _ in 0 }
+    cache[1] = 1
+    cache[2] = 2
+    
+    for index in 3...num {
+        cache[index] = cache[index - 1] + cache[index - 2]
+    }
+    
+    return cache[num] % 10007
+}
+
+print("\n===타일링===")
+print(타일링_recursive(2))
+print(타일링_recursive(9))
+print(타일링_dp(2))
+print(타일링_dp(9))
 
 
