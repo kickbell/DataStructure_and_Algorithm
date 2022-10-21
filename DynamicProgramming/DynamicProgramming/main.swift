@@ -93,6 +93,23 @@ func fibonacci_dp(_ num: Int) -> Int {
 //print(fibonacci_dp(9))
 
 
+/*
+ 조금 큰 수로 시간을 비교해보자.
+ 100은 너무오래걸려서 되지도 않고 40으로 하니까
+ 차이가 몇배냐.. 음 아무튼 겁나 많이 차이가 난다.
+ 
+ 102334155
+ 경과 시간: 1.8227120637893677
+
+ 102334155
+ 경과 시간: 0.00022804737091064453
+ */
+
+processTime { print(fibonacci_recursive(40)) }
+processTime { print(fibonacci_dp(40)) }
+
+
+
 
 
 
