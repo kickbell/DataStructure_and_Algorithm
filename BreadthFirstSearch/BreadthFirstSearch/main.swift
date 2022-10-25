@@ -92,8 +92,10 @@ func bfs(_ sortedGraph: [String: [String]], _ startNode: String) -> [String] {
     var needVisitedQueue: [String] = []
 
     needVisitedQueue.append(startNode)
-
+//    var count = 0 //실행횟수, 시간복잗도 확인
+    
     while !needVisitedQueue.isEmpty {
+//        count += 1
         let node = needVisitedQueue[needVisitedQueue.indices].popFirst() ?? ""
         if !visitedQueue.contains(node) {
             visitedQueue.append(node)
@@ -101,13 +103,17 @@ func bfs(_ sortedGraph: [String: [String]], _ startNode: String) -> [String] {
         }
     }
 
+//    print("count : \(count)")
     return visitedQueue
 }
 
-//["A", "B", "C", "D", "G", "H", "I", "E", "F", "J"]
+
 print(bfs(graph, startNode))
-
-
+//["A", "B", "C", "D", "G", "H", "I", "E", "F", "J"]
+//bfs 의 시간복잡도는 O(V+E)
+//V는 노드수, E는 간선수
+//따라서 19
+//count : 19
 
 
 
