@@ -13,7 +13,7 @@ func minCoinCount(_ price: Int, coins: [Int]) -> (Int, [(Int, Int)]) {
     var totalCoinCount = 0
     var history: [(Int, Int)] = []
     var inputPrice = price
-    let sortedCoins = coins.sorted(by: >)
+    let sortedCoins = coins.sorted(by: >) //[500, 100, 50, 1], reverse
     
     for coin in sortedCoins {
         let coinNum = inputPrice / coin
