@@ -17,7 +17,11 @@ let graph: [String: [String: Int]] = [
     "F":["A":5]
 ]
 
-//adjacent// 인접한
+
+/*
+ ### 다익스트라 알고리즘
+ - 탐색할 그래프의 시작 정점과 다른 정점들간의 최단 거리 구하기
+ */
 func dijkstra(graph: [String: [String: Int]], startNode: String) -> [String: Int] {
     //1. 초기화
     var distances: [String: Int] = [:]
@@ -34,6 +38,7 @@ func dijkstra(graph: [String: [String: Int]], startNode: String) -> [String: Int
         
         if distances[currentNode] ?? 0 < currentDistance { continue }
         
+        //adjacent 인접한
         for (adjacentNode, adjacentDistance) in graph[currentNode] ?? ["":0] {
             let distance = currentDistance + adjacentDistance
             
@@ -53,4 +58,8 @@ print(result.forEach { print($0) })
 
 
 
+/*
+ ### 참고: 최단 경로 출력
+ - 탐색할 그래프의 시작 정점과 다른 정점들간의 최단 거리 및 최단 경로 출력하기
+ */
 
